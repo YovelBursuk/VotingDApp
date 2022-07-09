@@ -15,7 +15,7 @@ contract Election {
         uint indexed _candidateId
     );
 
-    constructor () {
+    constructor () public {
         addCandidate("Candidate 1");
         addCandidate("Candidate 2");
     }
