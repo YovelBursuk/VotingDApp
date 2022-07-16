@@ -6,6 +6,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import TabPanel from './components/TabPanel';
 import './App.css'
+import CandidatesPage from './components/pages/CandidatesPage';
 
 function App() {
   const [account, setAccount] = useState();
@@ -52,15 +53,17 @@ function App() {
       </AppBar>
     </div>
     <div className='body-container'>
-    <TabPanel value={selectedTab} index={0}>
-      <span>This is the first tab</span>
-    </TabPanel>
-    <TabPanel value={selectedTab} index={1}>
-      <span>This is the second tab</span>
-    </TabPanel>
-    <TabPanel value={selectedTab} index={2}>
-      <span>This is the third tab</span>
-    </TabPanel>
+      <TabPanel value={selectedTab} index={0}>
+        <CandidatesPage 
+          allCandidates={candidates}
+        />
+      </TabPanel>
+      <TabPanel value={selectedTab} index={1}>
+        <span>This is the second tab</span>
+      </TabPanel>
+      <TabPanel value={selectedTab} index={2}>
+        <span>This is the third tab</span>
+      </TabPanel>
     </div>
     
     </div>
