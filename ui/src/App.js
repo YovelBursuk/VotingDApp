@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
 import { CONTACT_ABI, CONTACT_ADDRESS } from './ABI/Election.config';
 import Web3 from 'web3';
+import AppBar from '@mui/material/AppBar';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import TabPanel from './components/TabPanel';
+import './App.css'
 
 function App() {
   const [account, setAccount] = useState();
   const [candidatesList, setCandidatesList] = useState();
   const [candidates, setCandidates] = useState([]);
+  const [selectedTab, setSelectedTab] = useState(0);
   
   useEffect(() => {
     async function load() {
@@ -15,33 +21,50 @@ function App() {
 
       const candidatesList = new web3.eth.Contract(CONTACT_ABI, CONTACT_ADDRESS);
       setCandidatesList(candidatesList);
-      console.log(await candidatesList.methods.candidatesCount().call())
       const counter = await candidatesList.methods.candidatesCount().call();
+
+      let allCandidates = []
       for (let i=1; i<= counter; i++) {
         const candidate = await candidatesList.methods.candidates(i).call();
-        setCandidates((candidates) => [...candidates, candidate]);
+        allCandidates.push({...candidate})
       }
+      setCandidates(allCandidates);
     }
 
     load();
    }, []);
   
-   return (
-     <div>
-       Your account is: {account}
-       <h1>Candidates</h1>
-      <ul>
-      {
-        Object.keys(candidates).map((candidate, index) => (
-          <li key={`${candidates[index].name}-${index}`}>
-            <h4>{candidates[index].name}</h4>
-            <span><b>Vote Count: </b>{candidates[index].voteCount}</span>
-          </li>
-        ))
-      }
-      </ul>
-     </div>
-   );
+  const handleTabChange = (event, newValue) => {
+    console.log(newValue)
+    setSelectedTab(newValue);
+  }
+
+  return (
+    <div className='app'>
+    <div className='header-container'>
+      <AppBar position='static' className='app-bar-header'>
+        <h1>Election Poll</h1>
+        <Tabs value={selectedTab} onChange={handleTabChange} textColor="#ffffff" indicatorColor='#ffffff' centered>
+          <Tab label="All Candidates"/>
+          <Tab label="Add Candidate"/>
+          <Tab label="Results"/>
+        </Tabs>
+      </AppBar>
+    </div>
+    <div className='body-container'>
+    <TabPanel value={selectedTab} index={0}>
+      <span>This is the first tab</span>
+    </TabPanel>
+    <TabPanel value={selectedTab} index={1}>
+      <span>This is the second tab</span>
+    </TabPanel>
+    <TabPanel value={selectedTab} index={2}>
+      <span>This is the third tab</span>
+    </TabPanel>
+    </div>
+    
+    </div>
+  );
 }
 
 export default App;
