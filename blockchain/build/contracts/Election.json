@@ -109,7 +109,7 @@
   "sourceMap": "36:902:0:-;;;360:106;8:9:-1;5:2;;;30:1;27;20:12;5:2;360:106:0;393:27;;;;;;;;;;;;;;;;;;:12;;;:27;;:::i;:::-;431;;;;;;;;;;;;;;;;;;:12;;;:27;;:::i;:::-;36:902;;474:166;537:15;;:18;;;;;;;;;;;;;596:36;;;;;;;;606:15;;596:36;;;;623:5;596:36;;;;630:1;596:36;;;566:10;:27;577:15;;566:27;;;;;;;;;;;:66;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;474:166;:::o;36:902::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;",
   "deployedSourceMap": "36:902:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;36:902:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;648:287;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;648:287:0;;;;;;;;;;;;;;;;;:::i;:::-;;255:27;;;:::i;:::-;;;;;;;;;;;;;;;;;;;204:44;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;204:44:0;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;204:44:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;159:38;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;159:38:0;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;648:287;709:6;:18;716:10;709:18;;;;;;;;;;;;;;;;;;;;;;;;;708:19;700:28;;;;;;762:1;747:12;:16;:51;;;;;783:15;;767:12;:31;;747:51;739:60;;;;;;833:4;812:6;:18;819:10;812:18;;;;;;;;;;;;;;;;:25;;;;;;;;;;;;;;;;;;848:10;:24;859:12;848:24;;;;;;;;;;;:34;;;:37;;;;;;;;;;;;;914:12;903:24;;;;;;;;;;648:287;:::o;255:27::-;;;;:::o;204:44::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;159:38::-;;;;;;;;;;;;;;;;;;;;;;:::o",
   "source": "pragma solidity >=0.4.22 <0.9.0;\r\n\r\ncontract Election {\r\n    struct Candidate {\r\n        uint id;\r\n        string name;\r\n        uint voteCount;\r\n    }\r\n\r\n    mapping(address => bool) public voters;\r\n    mapping(uint => Candidate) public candidates;\r\n    uint public candidatesCount;\r\n\r\n    event votedEvent (\r\n        uint indexed _candidateId\r\n    );\r\n\r\n    constructor () public {\r\n        addCandidate(\"Candidate 1\");\r\n        addCandidate(\"Candidate 2\");\r\n    }\r\n\r\n    function addCandidate (string memory _name) private {\r\n        candidatesCount ++;\r\n        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);\r\n    }\r\n\r\n    function vote (uint _candidateId) public {\r\n        require(!voters[msg.sender]);\r\n        require(_candidateId > 0 && _candidateId <= candidatesCount);\r\n\r\n        voters[msg.sender] = true;\r\n        candidates[_candidateId].voteCount ++;\r\n\r\n        emit votedEvent(_candidateId);\r\n    }\r\n}",
-  "sourcePath": "C:\\Yovel\\HIT\\Blockchain\\DLVotingDApp\\blockchain\\contracts\\Election.sol",
+  "sourcePath": "c:\\Yovel\\HIT\\Blockchain\\DLVotingDApp\\blockchain\\contracts\\Election.sol",
   "ast": {
     "absolutePath": "project:/contracts/Election.sol",
     "exportedSymbols": {
@@ -2722,12 +2722,18 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x787E8E2C361c8EA5628d84aA96c7d8CF24d6433a",
-      "transactionHash": "0x6dbb5975522dcf13abeaa3ad358cdf6cc850edf5588ebcdfb0e394aff7260cfc"
+      "address": "0x803D18A259621935eEbe67C4596662255bD7711C",
+      "transactionHash": "0x1b853bfbd3872655972eff2930e6fca0fe9a72c61e36a36e8a80d0c7dcbda243"
+    },
+    "1657978954450": {
+      "events": {},
+      "links": {},
+      "address": "0x4ef121c8e322A61F4824130EB22d928570e2f411",
+      "transactionHash": "0x153d4a1c8699e883c8d82263485529d5a3e970319691873b08b3d7cc69f3bbac"
     }
   },
   "schemaVersion": "3.4.8",
-  "updatedAt": "2022-07-09T16:44:06.987Z",
+  "updatedAt": "2022-07-16T14:01:10.831Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
