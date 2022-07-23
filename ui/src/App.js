@@ -44,7 +44,7 @@ function App() {
     try {
       const voters = await electionContract.methods.voters(account).call()
       console.log(voters)
-      const voteResult = await electionContract.methods.vote(candidateId).call();
+      const voteResult = await electionContract.methods.vote(candidateId).send({from: account});
       console.log(voteResult)
       const voteEvent = await electionContract;
       console.log(voteEvent)
