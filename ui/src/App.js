@@ -6,7 +6,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import TabPanel from './components/TabPanel';
 import './App.css'
-import CandidatesPage from './components/pages/CandidatesPage';
+import CandidatesPage from './components/pages/candidatesPage/CandidatesPage';
+import AddCandidate from './components/pages/addCandidatePage/AddCandidatePage';
+import ResultsPage from './components/pages/resultsPage/ResultsPage';
 
 function App() {
   const [account, setAccount] = useState();
@@ -27,7 +29,7 @@ function App() {
       let allCandidates = []
       for (let i=1; i<= counter; i++) {
         const candidate = await contract.methods.candidates(i).call();
-        allCandidates.push({...candidate})
+        allCandidates.push({...candidate, voteCount: parseInt(candidate.voteCount)})
       }
       setCandidates(allCandidates);
     }
@@ -36,25 +38,37 @@ function App() {
    }, []);
   
   const handleTabChange = (event, newValue) => {
-    console.log(electionContract.methods)
     setSelectedTab(newValue);
   }
 
   const onVote = async (candidateId) => {
     try {
-      const voters = await electionContract.methods.voters(account).call()
-      console.log(voters)
       const voteResult = await electionContract.methods.vote(candidateId).send({from: account});
-      console.log(voteResult)
-      const voteEvent = await electionContract;
-      console.log(voteEvent)
-      const res = await electionContract.methods.addCandidate("Yovel").call()
-      console.log(res)
-      const counter = await electionContract.methods.candidatesCount().call();
-      console.log(counter)
+      if (voteResult && voteResult.status) {
+        setCandidates(candidates.map(candidate => {
+          return {
+            ...candidate,
+            voteCount: candidate.id === candidateId ? candidate.voteCount + 1 : candidate.voteCount
+          }
+        }))
+      }
     } catch (err) {
       console.error(err)
     }
+  }
+
+  const onAddCandidate = async ({candidateName}) => {
+    try {
+      const createResult = await electionContract.methods.addCandidate(candidateName).send({from: account});
+      console.log(createResult)
+      handleTabChange(0, 0)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const onCancelAddCandidate = async () => {
+    handleTabChange(0, 0)
   }
 
   return (
@@ -77,10 +91,13 @@ function App() {
         />
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
-        <span>This is the second tab</span>
+        <AddCandidate 
+          onSave={onAddCandidate}
+          onCancel={onCancelAddCandidate}
+        />
       </TabPanel>
       <TabPanel value={selectedTab} index={2}>
-        <span>This is the third tab</span>
+        <ResultsPage candidatesData={candidates}/>
       </TabPanel>
     </div>
     
