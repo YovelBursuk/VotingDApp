@@ -1,4 +1,4 @@
-export const CONTACT_ADDRESS = '0x86dbbc12d46ce6fbad7316a0ffa3d06ef29dfbe2';
+export const CONTACT_ADDRESS = '0x4fbf95fe763585bbf2c3b99cefe92eaade1e9ccf';
 
 export const CONTACT_ABI = [
 	{
@@ -75,6 +75,32 @@ export const CONTACT_ABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "electionEnds",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "electionStarts",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -101,6 +127,19 @@ export const CONTACT_ABI = [
 				"internalType": "bool",
 				"name": "",
 				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "votingTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",

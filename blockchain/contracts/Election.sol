@@ -10,6 +10,9 @@ contract Election {
     mapping(address => bool) public voters;
     mapping(uint => Candidate) public candidates;
     uint public candidatesCount;
+    uint public electionStarts = 1658598886192; // 2022-07-23
+    uint public electionEnds = 1659301200000; // 2022-08-01
+    uint public votingTime = 1 * 60; // 1 minute
 
     event votedEvent (
         uint indexed _candidateId

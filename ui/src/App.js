@@ -15,6 +15,9 @@ function App() {
   const [electionContract, setElectionContract] = useState();
   const [candidates, setCandidates] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
+  const [timeToVote, setTimeToVote] = useState(0);
+  const [electionStarts, setElectionStarts] = useState();
+  const [electionEnds, setElectionEnds] = useState();
   
   useEffect(() => {
     async function load() {
@@ -32,6 +35,17 @@ function App() {
         allCandidates.push({...candidate, voteCount: parseInt(candidate.voteCount)})
       }
       setCandidates(allCandidates);
+
+      const votingTime = await contract.methods.votingTime().call();
+      setTimeToVote(votingTime)
+
+      let electionStartDate = await contract.methods.electionStarts().call();
+      electionStartDate = new Date(parseInt(electionStartDate))
+      setElectionStarts(electionStartDate)
+
+      let electionEndDate = await contract.methods.electionEnds().call();
+      electionEndDate = new Date(parseInt(electionEndDate))
+      setElectionEnds(electionEndDate)
     }
 
     load();
