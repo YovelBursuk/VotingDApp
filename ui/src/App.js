@@ -10,7 +10,7 @@ import CandidatesPage from './components/pages/CandidatesPage';
 
 function App() {
   const [account, setAccount] = useState();
-  const [candidatesList, setCandidatesList] = useState();
+  const [electionContract, setElectionContract] = useState();
   const [candidates, setCandidates] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
   
@@ -20,13 +20,13 @@ function App() {
       const accounts = await web3.eth.requestAccounts();
       setAccount(accounts[0]);
 
-      const candidatesList = new web3.eth.Contract(CONTACT_ABI, CONTACT_ADDRESS);
-      setCandidatesList(candidatesList);
-      const counter = await candidatesList.methods.candidatesCount().call();
+      const contract = new web3.eth.Contract(CONTACT_ABI, CONTACT_ADDRESS);
+      setElectionContract(contract);
+      const counter = await contract.methods.candidatesCount().call();
 
       let allCandidates = []
       for (let i=1; i<= counter; i++) {
-        const candidate = await candidatesList.methods.candidates(i).call();
+        const candidate = await contract.methods.candidates(i).call();
         allCandidates.push({...candidate})
       }
       setCandidates(allCandidates);
@@ -36,8 +36,25 @@ function App() {
    }, []);
   
   const handleTabChange = (event, newValue) => {
-    console.log(newValue)
+    console.log(electionContract.methods)
     setSelectedTab(newValue);
+  }
+
+  const onVote = async (candidateId) => {
+    try {
+      const voters = await electionContract.methods.voters(account).call()
+      console.log(voters)
+      const voteResult = await electionContract.methods.vote(candidateId).call();
+      console.log(voteResult)
+      const voteEvent = await electionContract;
+      console.log(voteEvent)
+      const res = await electionContract.methods.addCandidate("Yovel").call()
+      console.log(res)
+      const counter = await electionContract.methods.candidatesCount().call();
+      console.log(counter)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
@@ -56,6 +73,7 @@ function App() {
       <TabPanel value={selectedTab} index={0}>
         <CandidatesPage 
           allCandidates={candidates}
+          onVote={onVote}
         />
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>

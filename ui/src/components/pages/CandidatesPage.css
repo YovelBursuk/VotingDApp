@@ -2,3 +2,23 @@
     display: flex;
     flex-direction: row;
 }
+
+.candidate-card-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+
+.candidate-card-name {
+    flex-grow: 5;
+}
+
+.candidate-card-votes {
+    flex-grow: 1;
+}
+
+.candidate-card-vote-button {
+    flex-grow: 0;
+    cursor: pointer;
+}
