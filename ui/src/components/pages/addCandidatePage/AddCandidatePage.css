@@ -1,0 +1,28 @@
+.add-candidate-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2;
+}
+
+.add-candidate-form-container .MuiTextField-root {
+    margin: 1;
+    width: 300px;
+}
+
+.add-candidate-form-container .MuiButtonBase-root {
+    margin: 2;
+}
+
+.add-candidate-form-header {
+    font-family: cursive;
+    font-size: 30px;
+}
+
+.add-candidate-form-fotter {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+    width: 70%;
+}
