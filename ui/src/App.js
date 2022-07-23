@@ -8,6 +8,7 @@ import TabPanel from './components/TabPanel';
 import './App.css'
 import CandidatesPage from './components/pages/candidatesPage/CandidatesPage';
 import AddCandidate from './components/pages/addCandidatePage/AddCandidatePage';
+import ResultsPage from './components/pages/resultsPage/ResultsPage';
 
 function App() {
   const [account, setAccount] = useState();
@@ -96,7 +97,7 @@ function App() {
         />
       </TabPanel>
       <TabPanel value={selectedTab} index={2}>
-        <span>This is the third tab</span>
+        <ResultsPage candidatesData={candidates}/>
       </TabPanel>
     </div>
     
