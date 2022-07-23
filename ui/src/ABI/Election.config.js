@@ -1,4 +1,4 @@
-export const CONTACT_ADDRESS = '0x4ef121c8e322A61F4824130EB22d928570e2f411';
+export const CONTACT_ADDRESS = '0x86dbbc12d46ce6fbad7316a0ffa3d06ef29dfbe2';
 
 export const CONTACT_ABI = [
 	{
@@ -18,6 +18,19 @@ export const CONTACT_ABI = [
 		],
 		"name": "votedEvent",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"name": "addCandidate",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [
@@ -59,8 +72,7 @@ export const CONTACT_ABI = [
 			}
 		],
 		"stateMutability": "view",
-		"type": "function",
-		"signature": "0x2d35a8a2"
+		"type": "function"
 	},
 	{
 		"inputs": [
@@ -93,20 +105,5 @@ export const CONTACT_ABI = [
 		],
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "count",
-		"outputs": [
-		  {
-			"name": "",
-			"type": "uint256"
-		  }
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function",
-		// "signature": "0x06661abd"
-	  },
+	}
 ]
