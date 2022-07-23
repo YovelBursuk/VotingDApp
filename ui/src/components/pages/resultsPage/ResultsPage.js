@@ -39,18 +39,6 @@ export default function ResultsPage({candidatesData}) {
                 width={800}
                 height={400}
                 series={formattedData}
-                // series={[{
-                //     data: [{
-                //         x: 'category A',
-                //         y: 10
-                //     }, {
-                //         x: 'category B',
-                //         y: 18
-                //     }, {
-                //         x: 'category C',
-                //         y: 13
-                //     }]
-                // }]}
             />
         </div>
     )
