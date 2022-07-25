@@ -18,6 +18,9 @@ function App() {
   const [timeToVote, setTimeToVote] = useState(0);
   const [electionStarts, setElectionStarts] = useState();
   const [electionEnds, setElectionEnds] = useState();
+  const [isVoting, setIsVoting] = useState(false);
+  const [votingEnabled, setVotingEnabled] = useState(true);
+
   
   useEffect(() => {
     async function load() {
@@ -50,6 +53,19 @@ function App() {
 
     load();
    }, []);
+
+   useEffect(() => {
+    const interval = setInterval(() => {
+      if (timeToVote > 0) {
+        setTimeToVote(timeToVote - 1);
+      } else {
+        setVotingEnabled(false);
+        setIsVoting(false);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timeToVote]);
   
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -93,15 +109,24 @@ function App() {
     handleTabChange(0, 0)
   }
 
+  const changeVotingState = () => {
+    setIsVoting(true);
+    setVotingEnabled(false);
+  }
+
   return (
     <div className='app'>
     <div className='header-container'>
       <AppBar position='static' className='app-bar-header'>
         <h1>Election Poll</h1>
+        {
+          (electionStarts && electionEnds) &&
+          <h3>{electionStarts.toISOString().split('T')[0]} - {electionEnds.toISOString().split('T')[0]}</h3>
+        }
         <Tabs value={selectedTab} onChange={handleTabChange} textColor="#ffffff" indicatorColor='#ffffff' centered>
           <Tab label="All Candidates"/>
-          <Tab label="Add Candidate"/>
-          <Tab label="Results"/>
+          <Tab label="Add Candidate" disabled={(timeToVote > 0) || (!votingEnabled)}/>
+          <Tab label="Results" disabled={timeToVote > 0}/>
         </Tabs>
       </AppBar>
     </div>
@@ -110,6 +135,10 @@ function App() {
         <CandidatesPage 
           allCandidates={candidates}
           onVote={onVote}
+          isVoting={isVoting}
+          onChangeVotingState={changeVotingState}
+          votingTime={timeToVote}
+          votingEnabled={votingEnabled}
         />
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>

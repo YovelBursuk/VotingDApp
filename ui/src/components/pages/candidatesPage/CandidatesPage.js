@@ -3,11 +3,33 @@ import Grow from '@mui/material/Grow';
 import Box from '@mui/material/Box';
 import './CandidatesPage.css'
 import { Button } from '@mui/material';
+import CountdownTimer from './CountdownTimer.js';
 
-export default function CandidatesPage({allCandidates, onVote}) {
+export default function CandidatesPage({
+    allCandidates, 
+    onVote,
+    isVoting,
+    onChangeVotingState,
+    votingTime,
+    votingEnabled
+}) {
 
     return (
         <div className='candidates-page-container'>
+            <div className='candidate-page-button-wrapper'>
+            { votingEnabled && !isVoting ?
+                <Button
+                    onClick={() => {onChangeVotingState()}}
+                    variant='contained' 
+                    className='candidate-page-change-voting-state'>
+                    Start Voting!
+                </Button>
+                :
+                <CountdownTimer votingTime={votingTime}/>
+            }
+                
+            </div>
+            <div className='candidate-page-cards-container'>
             {allCandidates.map((candidate, index) => (
                 <Grow
                     key={`${candidate.name}_${index}`}
@@ -23,19 +45,23 @@ export default function CandidatesPage({allCandidates, onVote}) {
                                 <span className='candidate-card-votes'>
                                     Total votes: {candidate.voteCount}
                                 </span>
-                                <Button 
-                                onClick={() => {onVote(candidate.id)}}
-                                color='success' 
-                                variant='contained' 
-                                className='candidate-card-vote-button'>
+                                { isVoting &&
+                                    <Button 
+                                    onClick={() => {onVote(candidate.id)}}
+                                    color='success' 
+                                    variant='contained' 
+                                    className='candidate-card-vote-button'>
                                     Vote
                                 </Button>
+                                }
                             </div>
                             
                         </Box>
                     </Paper>
                 </Grow>
             ))}
+            </div>
+            
         </div>
     )
 }

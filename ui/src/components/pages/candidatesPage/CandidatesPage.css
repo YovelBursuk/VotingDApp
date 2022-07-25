@@ -1,6 +1,13 @@
-.candidates-page-container {
+.candidate-page-button-wrapper {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.candidate-page-cards-container {
     flex-direction: row;
+    display: flex;
 }
 
 .candidate-card-container {
