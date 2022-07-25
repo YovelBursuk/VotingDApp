@@ -18,6 +18,12 @@ contract Election {
         uint indexed _candidateId
     );
 
+    event createdCandidateEvent (
+        uint indexed candidateId,
+        string indexed candidateName,
+        uint indexed candidateVoteCount
+    );
+
     constructor () public {
         addCandidate("Candidate 1");
         addCandidate("Candidate 5");
@@ -26,6 +32,7 @@ contract Election {
     function addCandidate (string memory _name) public {
         candidatesCount ++;
         candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+        emit createdCandidateEvent(candidatesCount, _name, 0);
     }
 
     function vote (uint _candidateId) public {

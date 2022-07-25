@@ -74,7 +74,15 @@ function App() {
   const onAddCandidate = async ({candidateName}) => {
     try {
       const createResult = await electionContract.methods.addCandidate(candidateName).send({from: account});
-      console.log(createResult)
+      const eventRes = createResult.events.createdCandidateEvent.returnValues;
+      setCandidates([
+        ...candidates, 
+        {
+          id: eventRes.candidateId,
+          name: candidateName,
+          voteCount: 0
+        }
+      ])
       handleTabChange(0, 0)
     } catch (err) {
       console.error(err)
