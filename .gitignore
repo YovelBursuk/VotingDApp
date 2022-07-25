@@ -5,6 +5,7 @@
 /ui/.pnp
 *.pnp.js
 /blockchain/node_modules
+/blockchain/build/
 
 # testing
 /testing/coverage
