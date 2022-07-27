@@ -9,13 +9,15 @@ contract ERC20Basic{
     mapping(address => mapping (address => uint256)) allowed;
     uint256 totalSupply_ = 0;
     uint256 totalVisits = 0;
+    address tokenOwner;
 
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
     constructor (uint256 total) public {
         totalSupply_ = total;
-        balances[msg.sender] = totalSupply_;
+        tokenOwner = msg.sender;
+        balances[tokenOwner] = totalSupply_;
         totalVisits = totalVisits + 1;
     }
 
@@ -28,16 +30,16 @@ contract ERC20Basic{
     }
 
     function transfer(address receiver, uint numTokens) public returns (bool) {
-        require(numTokens <= balances[msg.sender]);
-        balances[msg.sender] = balances[msg.sender] - numTokens;
+        require(numTokens <= balances[tokenOwner]);
+        balances[tokenOwner] = balances[tokenOwner] - numTokens;
         balances[receiver] = balances[receiver] + numTokens;
-        emit Transfer(msg.sender, receiver, numTokens);
+        emit Transfer(tokenOwner, receiver, numTokens);
         return true;
     }
 
     function approve(address delegate, uint numTokens) public returns (bool) {
-        allowed[msg.sender][delegate] = numTokens;
-        emit Approval(msg.sender, delegate, numTokens);
+        allowed[tokenOwner][delegate] = numTokens;
+        emit Approval(tokenOwner, delegate, numTokens);
         return true;
     }
 
@@ -47,9 +49,9 @@ contract ERC20Basic{
 
     function transferFrom(address owner, address buyer, uint numTokens) public returns (bool) {
         require(numTokens <= balances[owner]);
-        require(numTokens <= allowed[owner][msg.sender]);
+        require(numTokens <= allowed[owner][tokenOwner]);
         balances[owner] = balances[owner]-numTokens;
-        allowed[owner][msg.sender] = allowed[owner][msg.sender]-numTokens;
+        allowed[owner][tokenOwner] = allowed[owner][tokenOwner]-numTokens;
         balances[buyer] = balances[buyer]+numTokens;
         emit Transfer(owner, buyer, numTokens);
         return true;

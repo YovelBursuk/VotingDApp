@@ -32,9 +32,9 @@ contract Election {
         addCandidate("Candidate 1");
         addCandidate("Candidate 5");
         erc_20 = _t;
-        uint256 ccc = _t.totalSupply();
-        uint256 aaa = erc_20.totalSupply();
-        uint256 bbb = erc_20.totalSupply();
+        // uint256 ccc = _t.balanceOf(msg.sender);
+        // uint256 aaa = erc_20.totalSupply();
+        // uint256 bbb = erc_20.totalSupply();
     }
 
     function addCandidate (string memory _name) public {
