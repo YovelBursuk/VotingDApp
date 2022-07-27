@@ -4,7 +4,7 @@ pragma solidity >=0.7.0 <0.9.0;
 
 contract ERC20Basic{
     string public constant name = "ERC20Basic";
-    string public constant symbol = "ERC";
+    string public constant symbol = "ERC20";
     mapping(address => uint256) balances;
     mapping(address => mapping (address => uint256)) allowed;
     uint256 totalSupply_ = 0;
