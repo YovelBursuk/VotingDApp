@@ -9,6 +9,7 @@ import './App.css'
 import CandidatesPage from './components/pages/candidatesPage/CandidatesPage';
 import AddCandidate from './components/pages/addCandidatePage/AddCandidatePage';
 import ResultsPage from './components/pages/resultsPage/ResultsPage';
+import { ERC20BASIC_CONTRACT_ABI } from './ABI/ERC20Basic.config';
 
 function App() {
   const [account, setAccount] = useState();
@@ -20,6 +21,7 @@ function App() {
   const [electionEnds, setElectionEnds] = useState();
   const [isVoting, setIsVoting] = useState(false);
   const [votingEnabled, setVotingEnabled] = useState(true);
+  const [balanceOfAccount, setBalanceOfAccount] = useState(0);
 
   
   useEffect(() => {
@@ -54,6 +56,16 @@ function App() {
       let electionEndDate = await contract.methods.electionEnds().call();
       electionEndDate = new Date(parseInt(electionEndDate))
       setElectionEnds(electionEndDate)
+
+      const erc20_address = await contract.methods.erc_20().call();
+      const erc20_contract = new web3.eth.Contract(ERC20BASIC_CONTRACT_ABI, erc20_address);
+      const accountBalance = await erc20_contract.methods.balanceOf(accounts[0]).call();
+      setBalanceOfAccount(parseInt(accountBalance))
+      if (parseInt(accountBalance) > 0) {
+        setIsVoting(false)
+        setVotingEnabled(false)
+        setTimeToVote(0)
+      }
     }
 
     load();
