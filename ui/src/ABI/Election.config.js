@@ -1,8 +1,14 @@
-export const CONTACT_ADDRESS = '0x6066064d4e938ba59f6b8b5434ffe2aafc883d2a';
+export const CONTACT_ADDRESS = '0x791e51703035B33D44f555F4492eb0383cc63125';
 
 export const CONTACT_ABI = [
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_t",
+				"type": "address"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
