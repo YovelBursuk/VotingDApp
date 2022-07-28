@@ -69,7 +69,9 @@ function App() {
    useEffect(() => {
     const interval = setInterval(() => {
       if (timeToVote > 0) {
-        setTimeToVote(timeToVote - 1);
+        if (isVoting) {
+          setTimeToVote(timeToVote - 1);
+        }
       } else {
         setVotingEnabled(false);
         setIsVoting(false);
@@ -77,7 +79,7 @@ function App() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [timeToVote]);
+  }, [timeToVote, isVoting]);
   
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
