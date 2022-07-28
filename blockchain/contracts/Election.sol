@@ -10,13 +10,6 @@ contract Election {
         string name;
         uint voteCount;
         string description;
-        uint politicalNotion;
-        uint economicalNotion;
-        uint socialNotion;
-        uint religousNotion;
-        uint envFriendly;
-        uint yearsOfExperience;
-        uint age;
     }
 
     mapping(address => bool) public voters;
@@ -40,8 +33,8 @@ contract Election {
     );
 
     constructor (ERC20Basic _erc_20_address, ERC721Basic _erc_721_adress) public {
-        addCandidate("Yovel", "Young and desired to change the world", 7, 5, 5, 2, 4, 2, 23);
-        addCandidate("Idan", "Calculated and effects all aspects", 6, 6, 8, 2, 8, 10, 24);
+        addCandidate("Yovel", "Young and desired to change the world");
+        addCandidate("Idan", "Calculated and effects all aspects");
         tokenOwner = msg.sender;
         erc_20 = _erc_20_address;
         erc_721 = _erc_721_adress;
@@ -49,20 +42,10 @@ contract Election {
 
     function addCandidate (
         string memory _name,
-        string memory description,
-        uint politicalNotion,
-        uint economicalNotion,
-        uint socialNotion,
-        uint religousNotion,
-        uint envFriendly,
-        uint yearsOfExperience,
-        uint age
+        string memory description
     ) public {
         candidatesCount ++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0, 
-                                                description, politicalNotion, economicalNotion,
-                                                socialNotion, religousNotion, envFriendly, 
-                                                yearsOfExperience, age);
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0, description);
         emit createdCandidateEvent(candidatesCount, _name, 0);
     }
 
