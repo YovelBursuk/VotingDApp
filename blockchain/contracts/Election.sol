@@ -9,13 +9,21 @@ contract Election {
         uint id;
         string name;
         uint voteCount;
+        string description;
+        uint politicalNotion;
+        uint economicalNotion;
+        uint socialNotion;
+        uint religousNotion;
+        uint envFriendly;
+        uint yearsOfExperience;
+        uint age;
     }
 
     mapping(address => bool) public voters;
     mapping(uint => Candidate) public candidates;
     uint public candidatesCount;
     uint public electionStarts = 1658598886192; // 2022-07-23
-    uint public electionEnds = 1659301200000; // 2022-08-01
+    uint public electionEnds = 1659351900000; // 2022-08-01
     uint public votingTime = 1 * 60; // 1 minute
     address tokenOwner;
     ERC20Basic public erc_20;
@@ -32,16 +40,29 @@ contract Election {
     );
 
     constructor (ERC20Basic _erc_20_address, ERC721Basic _erc_721_adress) public {
-        addCandidate("Candidate 1");
-        addCandidate("Candidate 5");
+        addCandidate("Yovel", "Young and desired to change the world", 7, 5, 5, 2, 4, 2, 23);
+        addCandidate("Idan", "Calculated and effects all aspects", 6, 6, 8, 2, 8, 10, 24);
         tokenOwner = msg.sender;
         erc_20 = _erc_20_address;
         erc_721 = _erc_721_adress;
     }
 
-    function addCandidate (string memory _name) public {
+    function addCandidate (
+        string memory _name,
+        string memory description,
+        uint politicalNotion,
+        uint economicalNotion,
+        uint socialNotion,
+        uint religousNotion,
+        uint envFriendly,
+        uint yearsOfExperience,
+        uint age
+    ) public {
         candidatesCount ++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0, 
+                                                description, politicalNotion, economicalNotion,
+                                                socialNotion, religousNotion, envFriendly, 
+                                                yearsOfExperience, age);
         emit createdCandidateEvent(candidatesCount, _name, 0);
     }
 

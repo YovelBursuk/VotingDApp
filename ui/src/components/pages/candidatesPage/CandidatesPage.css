@@ -17,15 +17,32 @@
     flex-direction: column;
 }
 
-.candidate-card-name {
-    flex-grow: 5;
-}
-
-.candidate-card-votes {
-    flex-grow: 1;
+.slider-key {
+    min-width: 36%;
+    padding: 3% 8px;
 }
 
 .candidate-card-vote-button {
-    flex-grow: 0;
-    cursor: pointer;
+    position: relative;
+    top: 1.25em;
+}
+
+.candidate-card-name {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 26px;
+    font-family: sans-serif;
+    padding-top: 5px;
+}
+
+.candidate-card-description {
+    display: flex;
+    justify-content: center;
+    padding-top: 3px;
+    font-style: italic;
+}
+
+.slider-value.Mui-disabled {
+    color: cadetblue !important;
 }

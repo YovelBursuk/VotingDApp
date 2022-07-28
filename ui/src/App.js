@@ -35,12 +35,24 @@ function App() {
       let allCandidates = []
       for (let i=1; i<= counter; i++) {
         const candidate = await contract.methods.candidates(i).call();
-        allCandidates.push({...candidate, voteCount: parseInt(candidate.voteCount)})
+        allCandidates.push({
+          id: candidate.id,
+          name: candidate.name,
+          description: candidate.description,
+          voteCount: parseInt(candidate.voteCount),
+          political_notion: parseInt(candidate.politicalNotion),
+          economical_notion: parseInt(candidate.economicalNotion),
+          social_notion: parseInt(candidate.socialNotion),
+          religous_notion: parseInt(candidate.religousNotion),
+          enviromnent_friendly: parseInt(candidate.envFriendly),
+          years_of_experience: parseInt(candidate.yearsOfExperience),
+          age: parseInt(candidate.age)
+        })
       }
       setCandidates(allCandidates);
 
       const votingTime = await contract.methods.votingTime().call();
-      setTimeToVote(votingTime)
+      setTimeToVote(parseInt(votingTime))
 
       let electionStartDate = await contract.methods.electionStarts().call();
       electionStartDate = new Date(parseInt(electionStartDate))
@@ -125,8 +137,8 @@ function App() {
         }
         <Tabs value={selectedTab} onChange={handleTabChange} textColor="#ffffff" indicatorColor='#ffffff' centered>
           <Tab label="All Candidates"/>
-          <Tab label="Add Candidate" disabled={(timeToVote > 0) || (!votingEnabled)}/>
-          <Tab label="Results" disabled={timeToVote > 0}/>
+          <Tab label="Add Candidate"/>
+          <Tab label="Results"/>
         </Tabs>
       </AppBar>
     </div>
