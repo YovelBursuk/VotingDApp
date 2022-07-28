@@ -18,6 +18,9 @@ function App() {
   const [timeToVote, setTimeToVote] = useState(0);
   const [electionStarts, setElectionStarts] = useState();
   const [electionEnds, setElectionEnds] = useState();
+  const [isVoting, setIsVoting] = useState(false);
+  const [votingEnabled, setVotingEnabled] = useState(true);
+
   
   useEffect(() => {
     async function load() {
@@ -32,12 +35,24 @@ function App() {
       let allCandidates = []
       for (let i=1; i<= counter; i++) {
         const candidate = await contract.methods.candidates(i).call();
-        allCandidates.push({...candidate, voteCount: parseInt(candidate.voteCount)})
+        allCandidates.push({
+          id: candidate.id,
+          name: candidate.name,
+          description: candidate.description,
+          voteCount: parseInt(candidate.voteCount),
+          political_notion: parseInt(candidate.politicalNotion),
+          economical_notion: parseInt(candidate.economicalNotion),
+          social_notion: parseInt(candidate.socialNotion),
+          religous_notion: parseInt(candidate.religousNotion),
+          enviromnent_friendly: parseInt(candidate.envFriendly),
+          years_of_experience: parseInt(candidate.yearsOfExperience),
+          age: parseInt(candidate.age)
+        })
       }
       setCandidates(allCandidates);
 
       const votingTime = await contract.methods.votingTime().call();
-      setTimeToVote(votingTime)
+      setTimeToVote(parseInt(votingTime))
 
       let electionStartDate = await contract.methods.electionStarts().call();
       electionStartDate = new Date(parseInt(electionStartDate))
@@ -50,6 +65,19 @@ function App() {
 
     load();
    }, []);
+
+   useEffect(() => {
+    const interval = setInterval(() => {
+      if (timeToVote > 0) {
+        setTimeToVote(timeToVote - 1);
+      } else {
+        setVotingEnabled(false);
+        setIsVoting(false);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timeToVote]);
   
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -93,11 +121,20 @@ function App() {
     handleTabChange(0, 0)
   }
 
+  const changeVotingState = () => {
+    setIsVoting(true);
+    setVotingEnabled(false);
+  }
+
   return (
     <div className='app'>
     <div className='header-container'>
       <AppBar position='static' className='app-bar-header'>
         <h1>Election Poll</h1>
+        {
+          (electionStarts && electionEnds) &&
+          <h3>{electionStarts.toISOString().split('T')[0]} - {electionEnds.toISOString().split('T')[0]}</h3>
+        }
         <Tabs value={selectedTab} onChange={handleTabChange} textColor="#ffffff" indicatorColor='#ffffff' centered>
           <Tab label="All Candidates"/>
           <Tab label="Add Candidate"/>
@@ -110,6 +147,10 @@ function App() {
         <CandidatesPage 
           allCandidates={candidates}
           onVote={onVote}
+          isVoting={isVoting}
+          onChangeVotingState={changeVotingState}
+          votingTime={timeToVote}
+          votingEnabled={votingEnabled}
         />
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>

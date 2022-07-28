@@ -1,11 +1,16 @@
-export const CONTACT_ADDRESS = '0x791e51703035B33D44f555F4492eb0383cc63125';
+export const CONTACT_ADDRESS = '0x22845B2c2dE506c8C27F62fD6714415635b36AF1';
 
 export const CONTACT_ABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_t",
+				"internalType": "contract ERC20Basic",
+				"name": "_erc_20_address",
+				"type": "address"
+			},
+			{
+				"internalType": "contract ERC721Basic",
+				"name": "_erc_721_adress",
 				"type": "address"
 			}
 		],
@@ -56,6 +61,46 @@ export const CONTACT_ABI = [
 				"internalType": "string",
 				"name": "_name",
 				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "politicalNotion",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "economicalNotion",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "socialNotion",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "religousNotion",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "envFriendly",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "yearsOfExperience",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "age",
+				"type": "uint256"
 			}
 		],
 		"name": "addCandidate",
@@ -86,6 +131,46 @@ export const CONTACT_ABI = [
 			{
 				"internalType": "uint256",
 				"name": "voteCount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "politicalNotion",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "economicalNotion",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "socialNotion",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "religousNotion",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "envFriendly",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "yearsOfExperience",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "age",
 				"type": "uint256"
 			}
 		],
@@ -126,6 +211,32 @@ export const CONTACT_ABI = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "erc_20",
+		"outputs": [
+			{
+				"internalType": "contract ERC20Basic",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "erc_721",
+		"outputs": [
+			{
+				"internalType": "contract ERC721Basic",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
