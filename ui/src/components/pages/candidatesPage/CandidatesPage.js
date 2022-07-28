@@ -2,26 +2,24 @@ import Paper from '@mui/material/Paper';
 import Grow from '@mui/material/Grow';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import Stack from '@mui/material/Stack';
-import Slider from '@mui/material/Slider';
 import './CandidatesPage.css'
 import { Button } from '@mui/material';
 import CountdownTimer from './CountdownTimer.js';
 
-const sliderMarks = [
-    {
-        value: 1,
-        label: '1'
-    },
-    {
-        value: 5,
-        label: '5'
-    },
-    {
-        value: 10,
-        label: '10'
-    }
-]
+// const sliderMarks = [
+//     {
+//         value: 1,
+//         label: '1'
+//     },
+//     {
+//         value: 5,
+//         label: '5'
+//     },
+//     {
+//         value: 10,
+//         label: '10'
+//     }
+// ]
 
 export default function CandidatesPage({
     allCandidates, 
@@ -55,16 +53,19 @@ export default function CandidatesPage({
                     timeout={index * 1000}
                 >
                     <Paper sx={{ m:1 }} elevation={4}>
-                        <Box sx={{ width: 430, height: 450 }}>
+                        <Box sx={{ width: 430, height: 200 }}>
                             <div className='candidate-card-container'>
-                                <span className='candidate-card-name'>
-                                    {candidate.name}, {candidate.age}
-                                </span>
-                                <span className='candidate-card-description'>
-                                    "{candidate.description}"
-                                </span>
-                                <Divider sx={{ m:2 }} />
-                                {
+                                <div className='candidate-details'>
+                                    <span className='candidate-card-name'>
+                                        {candidate.name}
+                                    </span>
+                                    <span className='candidate-card-description'>
+                                        "{candidate.description}"
+                                    </span>
+                                    <Divider sx={{ m:2 }} />
+                                </div>
+                                
+                                {/* {
                                     Object.entries(candidate).map(([k, v]) => {
                                         if (['id', 'name', 'voteCount', 'age', 'description'].includes(k)) {
                                             return null;
@@ -93,7 +94,7 @@ export default function CandidatesPage({
                                         )
                                         
                                     })
-                                }
+                                } */}
 
                                 { isVoting &&
                                     <Button 

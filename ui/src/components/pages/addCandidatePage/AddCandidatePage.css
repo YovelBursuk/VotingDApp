@@ -26,3 +26,7 @@
     justify-content: space-between;
     width: 70%;
 }
+
+.add-candidate-name-property {
+    padding-bottom: 15px !important;
+} 

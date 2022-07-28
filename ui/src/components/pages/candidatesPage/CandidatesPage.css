@@ -22,9 +22,12 @@
     padding: 3% 8px;
 }
 
+.candidate-details {
+    flex-grow: 1;
+}
+
 .candidate-card-vote-button {
-    position: relative;
-    top: 1.25em;
+    flex-grow: 0;
 }
 
 .candidate-card-name {

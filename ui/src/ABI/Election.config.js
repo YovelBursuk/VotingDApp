@@ -1,4 +1,4 @@
-export const CONTACT_ADDRESS = '0x22845B2c2dE506c8C27F62fD6714415635b36AF1';
+export const CONTACT_ADDRESS = '0x2fA5032b2E080Af35F9507355633786a43093bBf';
 
 export const CONTACT_ABI = [
 	{
@@ -66,41 +66,6 @@ export const CONTACT_ABI = [
 				"internalType": "string",
 				"name": "description",
 				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "politicalNotion",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "economicalNotion",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "socialNotion",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "religousNotion",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "envFriendly",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "yearsOfExperience",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "age",
-				"type": "uint256"
 			}
 		],
 		"name": "addCandidate",
@@ -137,41 +102,6 @@ export const CONTACT_ABI = [
 				"internalType": "string",
 				"name": "description",
 				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "politicalNotion",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "economicalNotion",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "socialNotion",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "religousNotion",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "envFriendly",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "yearsOfExperience",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "age",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",

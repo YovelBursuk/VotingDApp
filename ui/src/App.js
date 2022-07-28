@@ -39,14 +39,7 @@ function App() {
           id: candidate.id,
           name: candidate.name,
           description: candidate.description,
-          voteCount: parseInt(candidate.voteCount),
-          political_notion: parseInt(candidate.politicalNotion),
-          economical_notion: parseInt(candidate.economicalNotion),
-          social_notion: parseInt(candidate.socialNotion),
-          religous_notion: parseInt(candidate.religousNotion),
-          enviromnent_friendly: parseInt(candidate.envFriendly),
-          years_of_experience: parseInt(candidate.yearsOfExperience),
-          age: parseInt(candidate.age)
+          voteCount: parseInt(candidate.voteCount)
         })
       }
       setCandidates(allCandidates);
@@ -69,7 +62,9 @@ function App() {
    useEffect(() => {
     const interval = setInterval(() => {
       if (timeToVote > 0) {
-        setTimeToVote(timeToVote - 1);
+        if (isVoting) {
+          setTimeToVote(timeToVote - 1);
+        }
       } else {
         setVotingEnabled(false);
         setIsVoting(false);
@@ -77,7 +72,7 @@ function App() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [timeToVote]);
+  }, [timeToVote, isVoting]);
   
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -94,21 +89,25 @@ function App() {
           }
         }))
       }
+      setIsVoting(false)
+      setVotingEnabled(false)
+      setTimeToVote(0)
     } catch (err) {
       console.error(err)
     }
   }
 
-  const onAddCandidate = async ({candidateName}) => {
+  const onAddCandidate = async ({candidateName, candidateDescription}) => {
     try {
-      const createResult = await electionContract.methods.addCandidate(candidateName).send({from: account});
+      const createResult = await electionContract.methods.addCandidate(candidateName, candidateDescription).send({from: account});
       const eventRes = createResult.events.createdCandidateEvent.returnValues;
       setCandidates([
         ...candidates, 
         {
           id: eventRes.candidateId,
           name: candidateName,
-          voteCount: 0
+          voteCount: 0,
+          description: candidateDescription
         }
       ])
       handleTabChange(0, 0)
