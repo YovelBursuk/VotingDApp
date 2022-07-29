@@ -31,7 +31,8 @@ export default function CandidatesPage({
     votingTime,
     votingEnabled,
     electionStarts,
-    electionEnds
+    electionEnds,
+    openAutoPick
 }) {
     const sliderMarks = () => {
         const duration = electionEnds - electionStarts;
@@ -75,12 +76,20 @@ export default function CandidatesPage({
             </div>
             <div className='candidate-page-button-wrapper'>
             { votingEnabled && !isVoting ?
-                <Button
-                    onClick={() => {onChangeVotingState()}}
-                    variant='contained' 
-                    className='candidate-page-change-voting-state'>
-                    Start Voting!
-                </Button>
+                <div className='candidate-page-button-actions'>
+                    <Button
+                        onClick={() => {onChangeVotingState()}}
+                        variant='contained' 
+                        className='candidate-page-change-voting-state'>
+                        Start Voting!
+                    </Button>
+                    <Button
+                        onClick={() => {openAutoPick()}}
+                        variant='contained' 
+                        className='candidate-page-set-pick-for-me'>
+                        Pick for me
+                    </Button>
+                </div>
                 :
                 <CountdownTimer votingTime={votingTime}/>
             }

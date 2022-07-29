@@ -10,6 +10,7 @@ import CandidatesPage from './components/pages/candidatesPage/CandidatesPage';
 import AddCandidate from './components/pages/addCandidatePage/AddCandidatePage';
 import ResultsPage from './components/pages/resultsPage/ResultsPage';
 import { ERC20BASIC_CONTRACT_ABI } from './ABI/ERC20Basic.config';
+import PickForMe from './components/pages/pickForMeModal/PickForMe';
 
 function App() {
   const [account, setAccount] = useState();
@@ -21,7 +22,7 @@ function App() {
   const [electionEnds, setElectionEnds] = useState();
   const [isVoting, setIsVoting] = useState(false);
   const [votingEnabled, setVotingEnabled] = useState(true);
-  const [balanceOfAccount, setBalanceOfAccount] = useState(0);
+  const [openPickForMe, setOpenPickForMe] = useState(false);
 
   
   useEffect(() => {
@@ -60,7 +61,6 @@ function App() {
       const erc20_address = await contract.methods.erc_20().call();
       const erc20_contract = new web3.eth.Contract(ERC20BASIC_CONTRACT_ABI, erc20_address);
       const accountBalance = await erc20_contract.methods.balanceOf(accounts[0]).call();
-      setBalanceOfAccount(parseInt(accountBalance))
       if (parseInt(accountBalance) > 0) {
         setIsVoting(false)
         setVotingEnabled(false)
@@ -160,6 +160,7 @@ function App() {
           votingEnabled={votingEnabled}
           electionStarts={electionStarts}
           electionEnds={electionEnds}
+          openAutoPick={() => setOpenPickForMe(true)}
         />
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
@@ -173,6 +174,14 @@ function App() {
       </TabPanel>
     </div>
     
+    <PickForMe 
+      isOpen={openPickForMe}
+      onClose={() => setOpenPickForMe(false)}
+      onSave={(properties) => {
+        console.log(properties);
+        setOpenPickForMe(false);
+      }}
+    />
     </div>
   );
 }
