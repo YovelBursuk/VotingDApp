@@ -142,10 +142,6 @@ function App() {
     <div className='header-container'>
       <AppBar position='static' className='app-bar-header'>
         <h1>Election Poll</h1>
-        {
-          (electionStarts && electionEnds) &&
-          <h3>{electionStarts.toISOString().split('T')[0]} - {electionEnds.toISOString().split('T')[0]}</h3>
-        }
         <Tabs value={selectedTab} onChange={handleTabChange} textColor="#ffffff" indicatorColor='#ffffff' centered>
           <Tab label="All Candidates"/>
           <Tab label="Add Candidate"/>
@@ -154,7 +150,7 @@ function App() {
       </AppBar>
     </div>
     <div className='body-container'>
-      <TabPanel value={selectedTab} index={0}>
+      <TabPanel value={selectedTab} index={0} className='candidate-page-tab'>
         <CandidatesPage 
           allCandidates={candidates}
           onVote={onVote}
@@ -162,6 +158,8 @@ function App() {
           onChangeVotingState={changeVotingState}
           votingTime={timeToVote}
           votingEnabled={votingEnabled}
+          electionStarts={electionStarts}
+          electionEnds={electionEnds}
         />
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
