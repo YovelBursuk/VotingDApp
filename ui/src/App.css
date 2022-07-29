@@ -23,3 +23,12 @@
   align-items: center;
   height: 80%;
 }
+
+#tabpanel-0,
+#inner-tabpanel-0 {
+  height: 100%;
+}
+
+.candidate-page-tab {
+  height: 100%;
+}

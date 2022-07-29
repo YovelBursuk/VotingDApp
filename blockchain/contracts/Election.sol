@@ -48,6 +48,7 @@ contract Election {
     function vote (uint _candidateId) public {
         require(erc721.balanceOf(msg.sender) < 1);
         require(_candidateId > 0 && _candidateId <= candidatesCount);
+        require((block.timestamp * 1000) >= electionStarts && (block.timestamp * 1000) <= electionEnds);
 
         erc721.mint(msg.sender);
         candidates[_candidateId].voteCount ++;

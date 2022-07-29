@@ -9,6 +9,8 @@ import './App.css'
 import CandidatesPage from './components/pages/candidatesPage/CandidatesPage';
 import AddCandidate from './components/pages/addCandidatePage/AddCandidatePage';
 import ResultsPage from './components/pages/resultsPage/ResultsPage';
+import { ERC20BASIC_CONTRACT_ABI } from './ABI/ERC20Basic.config';
+import PickForMe from './components/pages/pickForMeModal/PickForMe';
 
 function App() {
   const [account, setAccount] = useState();
@@ -20,6 +22,7 @@ function App() {
   const [electionEnds, setElectionEnds] = useState();
   const [isVoting, setIsVoting] = useState(false);
   const [votingEnabled, setVotingEnabled] = useState(true);
+  const [openPickForMe, setOpenPickForMe] = useState(false);
 
   
   useEffect(() => {
@@ -54,6 +57,15 @@ function App() {
       let electionEndDate = await contract.methods.electionEnds().call();
       electionEndDate = new Date(parseInt(electionEndDate))
       setElectionEnds(electionEndDate)
+
+      const erc20_address = await contract.methods.erc_20().call();
+      const erc20_contract = new web3.eth.Contract(ERC20BASIC_CONTRACT_ABI, erc20_address);
+      const accountBalance = await erc20_contract.methods.balanceOf(accounts[0]).call();
+      if (parseInt(accountBalance) > 0) {
+        setIsVoting(false)
+        setVotingEnabled(false)
+        setTimeToVote(0)
+      }
     }
 
     load();
@@ -130,10 +142,6 @@ function App() {
     <div className='header-container'>
       <AppBar position='static' className='app-bar-header'>
         <h1>Election Poll</h1>
-        {
-          (electionStarts && electionEnds) &&
-          <h3>{electionStarts.toISOString().split('T')[0]} - {electionEnds.toISOString().split('T')[0]}</h3>
-        }
         <Tabs value={selectedTab} onChange={handleTabChange} textColor="#ffffff" indicatorColor='#ffffff' centered>
           <Tab label="All Candidates"/>
           <Tab label="Add Candidate"/>
@@ -142,7 +150,7 @@ function App() {
       </AppBar>
     </div>
     <div className='body-container'>
-      <TabPanel value={selectedTab} index={0}>
+      <TabPanel value={selectedTab} index={0} className='candidate-page-tab'>
         <CandidatesPage 
           allCandidates={candidates}
           onVote={onVote}
@@ -150,6 +158,9 @@ function App() {
           onChangeVotingState={changeVotingState}
           votingTime={timeToVote}
           votingEnabled={votingEnabled}
+          electionStarts={electionStarts}
+          electionEnds={electionEnds}
+          openAutoPick={() => setOpenPickForMe(true)}
         />
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
@@ -163,6 +174,14 @@ function App() {
       </TabPanel>
     </div>
     
+    <PickForMe 
+      isOpen={openPickForMe}
+      onClose={() => setOpenPickForMe(false)}
+      onSave={(properties) => {
+        console.log(properties);
+        setOpenPickForMe(false);
+      }}
+    />
     </div>
   );
 }

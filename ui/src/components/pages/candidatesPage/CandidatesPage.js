@@ -2,6 +2,8 @@ import Paper from '@mui/material/Paper';
 import Grow from '@mui/material/Grow';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+import Slider from '@mui/material/Slider';
 import './CandidatesPage.css'
 import { Button } from '@mui/material';
 import CountdownTimer from './CountdownTimer.js';
@@ -27,19 +29,67 @@ export default function CandidatesPage({
     isVoting,
     onChangeVotingState,
     votingTime,
-    votingEnabled
+    votingEnabled,
+    electionStarts,
+    electionEnds,
+    openAutoPick
 }) {
-
+    const sliderMarks = () => {
+        const duration = electionEnds - electionStarts;
+        const interval = 1000 * 60 * 60 * 24 // 1 day
+        const steps = duration / interval;
+        return Array.from({length: steps+2}, 
+            (v, i) => new Date(electionStarts.valueOf() + (interval * i)))
+            .map(date => {
+                return {
+                    value: date.getTime(),
+                    label: date.toISOString().split('T')[0]
+                }
+            })
+    }
     return (
         <div className='candidates-page-container'>
+            <div className='candidate-page-voting-timeline'>
+                {
+                    electionStarts && electionEnds &&
+                    <Stack spacing={3} direction="row" sx={{ mb: 1}}  alignItems="center">
+                        <span>
+                            Election Starts
+                        </span>
+                        <Slider
+                            className={'slider-value'}
+                            defaultValue={new Date().getTime()}
+                            step={1000 * 60 * 60 * 24}
+                            min={electionStarts.getTime()}
+                            max={electionEnds.getTime()}
+                            valueLabelDisplay="auto"
+                            marks={sliderMarks()}
+                            valueLabelFormat={(val) => new Date(val).toISOString().split('T')[0]}
+                            disabled
+                            color='secondary'
+                        />
+                        <span>
+                            Election Ends
+                        </span>
+                    </Stack>
+                }
+            </div>
             <div className='candidate-page-button-wrapper'>
             { votingEnabled && !isVoting ?
-                <Button
-                    onClick={() => {onChangeVotingState()}}
-                    variant='contained' 
-                    className='candidate-page-change-voting-state'>
-                    Start Voting!
-                </Button>
+                <div className='candidate-page-button-actions'>
+                    <Button
+                        onClick={() => {onChangeVotingState()}}
+                        variant='contained' 
+                        className='candidate-page-change-voting-state'>
+                        Start Voting!
+                    </Button>
+                    <Button
+                        onClick={() => {openAutoPick()}}
+                        variant='contained' 
+                        className='candidate-page-set-pick-for-me'>
+                        Pick for me
+                    </Button>
+                </div>
                 :
                 <CountdownTimer votingTime={votingTime}/>
             }
