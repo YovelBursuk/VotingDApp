@@ -1,16 +1,16 @@
-export const CONTACT_ADDRESS = '0x2fA5032b2E080Af35F9507355633786a43093bBf';
+export const CONTACT_ADDRESS = "0x971a1B232ca857d22B2B2983Da21A4B293C8B0e0";
 
 export const CONTACT_ABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "contract ERC20Basic",
-				"name": "_erc_20_address",
+				"internalType": "contract ERC20ElectionToken",
+				"name": "erc20Address",
 				"type": "address"
 			},
 			{
-				"internalType": "contract ERC721Basic",
-				"name": "_erc_721_adress",
+				"internalType": "contract ERC721ElectionNFT",
+				"name": "erc721Adress",
 				"type": "address"
 			}
 		],
@@ -148,10 +148,10 @@ export const CONTACT_ABI = [
 	},
 	{
 		"inputs": [],
-		"name": "erc_20",
+		"name": "erc20",
 		"outputs": [
 			{
-				"internalType": "contract ERC20Basic",
+				"internalType": "contract ERC20ElectionToken",
 				"name": "",
 				"type": "address"
 			}
@@ -161,10 +161,10 @@ export const CONTACT_ABI = [
 	},
 	{
 		"inputs": [],
-		"name": "erc_721",
+		"name": "erc721",
 		"outputs": [
 			{
-				"internalType": "contract ERC721Basic",
+				"internalType": "contract ERC721ElectionNFT",
 				"name": "",
 				"type": "address"
 			}
@@ -183,25 +183,6 @@ export const CONTACT_ABI = [
 		"name": "vote",
 		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "voters",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{

@@ -4,17 +4,16 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract ERC721Basic is ERC721 {
+contract ERC721ElectionNFT is ERC721 {
     using Counters for Counters.Counter;
 
-    Counters.Counter private _tokenId;
+    uint8 public constant decimals = 0;
+    Counters.Counter private tokenId;
     
-    constructor() ERC721('ERC721Basic', 'ERC721') {}
+    constructor() ERC721("ERC721ElectionNFT", "ERC721ENFT") {}
 
     function mint(address owner) public {
-        _tokenId.increment();
-
-        uint256 newTokenID = _tokenId.current();
-        _mint(owner, newTokenID);
+        tokenId.increment();
+        _mint(owner, tokenId.current());
     }
 }
