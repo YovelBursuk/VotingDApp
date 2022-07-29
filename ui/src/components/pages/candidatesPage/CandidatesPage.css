@@ -3,11 +3,14 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 30px;
+    flex-grow: 1;
+    margin-top: 120px;
 }
 
 .candidate-page-cards-container {
     flex-direction: row;
     display: flex;
+    flex-grow: 0;
 }
 
 .candidate-card-container {
@@ -48,4 +51,27 @@
 
 .slider-value.Mui-disabled {
     color: cadetblue !important;
+}
+
+.candidate-page-voting-timeline {
+    flex-grow: 0;
+    padding-top: 20px;
+}
+
+.candidate-page-voting-timeline .MuiSlider-markLabelActive,
+.candidate-page-voting-timeline .MuiSlider-markLabel {
+    transform: rotate(45deg) !important;
+    padding-top: 20px;
+}
+
+.candidates-page-container {
+    display: flex;
+    flex-direction: column;
+    height: 85%;
+}
+
+.candidate-page-button-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
 }

@@ -9,7 +9,7 @@ export default function TabPanel({children, value, index, ...other}) {
         >
             {
                 value === index && (
-                    <div>
+                    <div id={`inner-tabpanel-${index}`}>
                         {children}
                     </div>
                 )

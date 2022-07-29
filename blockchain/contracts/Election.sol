@@ -53,6 +53,7 @@ contract Election {
         // require(!voters[msg.sender]);
         require(erc_721.balanceOf(msg.sender) < 1);
         require(_candidateId > 0 && _candidateId <= candidatesCount);
+        require((block.timestamp * 1000) >= electionStarts && (block.timestamp * 1000) <= electionEnds);
 
         erc_721.mint(msg.sender);
 
