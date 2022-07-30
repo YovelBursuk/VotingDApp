@@ -114,37 +114,6 @@ export default function CandidatesPage({
                                     </span>
                                     <Divider sx={{ m:2 }} />
                                 </div>
-                                
-                                {/* {
-                                    Object.entries(candidate).map(([k, v]) => {
-                                        if (['id', 'name', 'voteCount', 'age', 'description'].includes(k)) {
-                                            return null;
-                                        }
-
-                                        return (
-                                            <Stack key={k} spacing={3} direction="row" sx={{ mb: 1}}  alignItems="center">
-                                                <span className='slider-key'>
-                                                    { k.split('_').map(w => {
-                                                        return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()
-                                                    }).join(' ') }:
-                                                </span>
-                                                <Slider
-                                                    className={'slider-value'}
-                                                    defaultValue={v}
-                                                    step={1}
-                                                    min={1}
-                                                    max={10}
-                                                    valueLabelDisplay="auto"
-                                                    marks={sliderMarks}
-                                                    sx={{ width: 1/2 }}
-                                                    disabled
-                                                    color='secondary'
-                                                />
-                                            </Stack>
-                                        )
-                                        
-                                    })
-                                } */}
 
                                 { isVoting &&
                                     <Button 

@@ -3,6 +3,7 @@ import { Button, Dialog, DialogActions,
     Stack, Slider, Divider
  } from "@mui/material";
 import { useState } from "react";
+import OurModel from "../../../deepLearning/model";
 import './PickForMe.css';
 
 const sliderMarks = [
@@ -23,7 +24,7 @@ const sliderMarks = [
 export default function PickForMe({
     isOpen,
     onClose,
-    onSave
+    getCandidateInfo
 }) {
     const [properties, setProperties] = useState({
         political_notion: 0,
@@ -32,6 +33,14 @@ export default function PickForMe({
         religous_notion: 0,
         enviromnent_friendly: 0
     })
+    const [pickedCandidate, setPickedCandidate] = useState();
+
+    const handleCalculate = async () => {
+        const model = new OurModel()
+        const prediction = await model.predict(...Object.values(properties))
+        const candidate = getCandidateInfo(prediction)
+        setPickedCandidate(candidate)
+    }
 
     return (
         <Dialog open={isOpen} onClose={onClose}>
@@ -75,12 +84,18 @@ export default function PickForMe({
                             />
                         </Stack>
                     )
-                })
-            }
+                })}
+                {
+                    !!pickedCandidate && 
+                    <DialogContentText>
+                        The best candidate for you is: {pickedCandidate.name}
+                    </DialogContentText>
+                }
+            
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>Cancel</Button>
-                <Button onClick={() => onSave(properties)}>Calculate</Button>
+                <Button onClick={handleCalculate}>Calculate</Button>
             </DialogActions>
         </Dialog>
     )
