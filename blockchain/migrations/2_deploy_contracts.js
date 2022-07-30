@@ -1,12 +1,12 @@
 
-var One = artifacts.require("./ERC20Basic.sol");
-var Three = artifacts.require("./ERC721Basic.sol");
-var Two = artifacts.require("./Election.sol");
+var one = artifacts.require("./ERC20ElectionToken.sol");
+var two = artifacts.require("./ERC721ElectionNFT.sol");
+var three = artifacts.require("./Election.sol");
 
 module.exports = (deployer, network) => {
-  deployer.deploy(One, 200000).then(function() {
-    return deployer.deploy(Three)
+  deployer.deploy(one, 200000).then(function() {
+    return deployer.deploy(two)
   }).then(function() {
-    return deployer.deploy(Two, One.address, Three.address)
+    return deployer.deploy(three, one.address, two.address)
   });
 };

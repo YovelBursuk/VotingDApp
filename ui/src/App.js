@@ -58,7 +58,7 @@ function App() {
       electionEndDate = new Date(parseInt(electionEndDate))
       setElectionEnds(electionEndDate)
 
-      const erc20_address = await contract.methods.erc_20().call();
+      const erc20_address = await contract.methods.erc20().call();
       const erc20_contract = new web3.eth.Contract(ERC20BASIC_CONTRACT_ABI, erc20_address);
       const accountBalance = await erc20_contract.methods.balanceOf(accounts[0]).call();
       if (parseInt(accountBalance) > 0) {
