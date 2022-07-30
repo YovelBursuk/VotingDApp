@@ -177,10 +177,7 @@ function App() {
     <PickForMe 
       isOpen={openPickForMe}
       onClose={() => setOpenPickForMe(false)}
-      onSave={(properties) => {
-        console.log(properties);
-        setOpenPickForMe(false);
-      }}
+      getCandidateInfo={(i) => candidates[i % candidates.length]}
     />
     </div>
   );

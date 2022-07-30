@@ -1,19 +1,24 @@
 
 import * as tf from '@tensorflow/tfjs';
+import modelJson from './model.json'
 
 export default class OurModel {
-    static predict(political_tendancy, economical_tendancy, social_tendancy, religious_tendancy, environment_friendly) {
-        const tf = require("@tensorflow/tfjs");
-        const tfn = require("@tensorflow/tfjs-node");
-        const handler = tfn.io.fileSystem("./tfjs/model.json");
-        const model = await tf.loadLayersModel(handler);
-
+    async predict(political_tendancy, economical_tendancy, social_tendancy, religious_tendancy, environment_friendly) {
+        const str = JSON.stringify(modelJson);
+        const bytes = new TextEncoder().encode(str);
+        const blob = new Blob([bytes], {
+            type: "application/json;charset=utf-8"
+        });
+        const handler = tf.io.browserFiles([blob])       
+        const model = await tf.loadLayersModel(handler)
 
         const input = tf.tensor([[political_tendancy, economical_tendancy, social_tendancy, religious_tendancy, 
             environment_friendly]]);
-        // const model = await tf.loadLayersModel('http://locahost:3000/model.json');
 
-        const output = model.predict(input);
-        const selected = output.argMax();
+        let output = await model.predict(input);
+        output = await output.array()
+        output = output[0]
+        const selected = output.indexOf(Math.max.apply(null, output));
+        return selected
     }
 }

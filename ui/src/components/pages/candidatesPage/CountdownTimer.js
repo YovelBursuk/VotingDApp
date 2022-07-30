@@ -5,7 +5,7 @@ export default function CountdownTimer({votingTime}) {
     if (votingTime <= 0) {
         return (
         <div className="expired-notice">
-            <span>Voting Expired!!!</span>
+            <span>Vote Submitted!</span>
         </div>
         );
     }
