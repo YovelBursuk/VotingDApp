@@ -113,7 +113,7 @@ export const ERC20BASIC_CONTRACT_ABI = [
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "tokenOwner",
+				"name": "account",
 				"type": "address"
 			}
 		],
@@ -123,6 +123,19 @@ export const ERC20BASIC_CONTRACT_ABI = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "decimals",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "",
+				"type": "uint8"
 			}
 		],
 		"stateMutability": "view",
