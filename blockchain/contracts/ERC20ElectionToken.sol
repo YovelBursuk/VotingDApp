@@ -51,12 +51,14 @@ contract ERC20ElectionToken is ERC20Interface{
     }
 
     function approve(address delegate, uint numTokens) public override returns (bool) {
+        require(msg.sender == ERC20Owner);
         allowed[ERC20Owner][delegate] = numTokens;
         emit Approval(ERC20Owner, delegate, numTokens);
         return true;
     }
 
     function allowance(address owner, address delegate) public view override returns (uint) {
+        require(owner == ERC20Owner);
         return allowed[owner][delegate];
     }
 
